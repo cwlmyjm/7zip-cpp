@@ -165,7 +165,7 @@ STDMETHODIMP ArchiveExtractCallback::GetStream( UInt32 index, ISequentialOutStre
 		return HRESULT_FROM_WIN32( GetLastError() );
 	}
 
-	CComPtr< OutStreamWrapper > wrapperStream = new OutStreamWrapper( fileStream );
+	CComPtr< OutStreamWrapper > wrapperStream = new OutStreamWrapper( fileStream, m_absPath, m_archivePath, m_callback );
 	*outStream = wrapperStream.Detach();
 
 	return CheckBreak();

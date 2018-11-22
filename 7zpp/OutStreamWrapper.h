@@ -2,6 +2,7 @@
 
 
 #include <7zip/IStream.h>
+#include "ProgressCallback.h"
 
 
 namespace SevenZip
@@ -15,9 +16,13 @@ namespace intl
 		long				m_refCount;
 		CComPtr< IStream >	m_baseStream;
 
+		TString				m_archivePath;
+		TString				m_streamName;
+		ProgressCallback *  m_callback;
+
 	public:
 
-		OutStreamWrapper( const CComPtr< IStream >& baseStream );
+		OutStreamWrapper(const CComPtr< IStream >& baseStream, TString& streamName, TString& archivePath, ProgressCallback * callback);
 		virtual ~OutStreamWrapper();
 
 		STDMETHOD(QueryInterface)( REFIID iid, void** ppvObject );

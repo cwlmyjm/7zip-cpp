@@ -7,10 +7,13 @@ namespace SevenZip
 namespace intl
 {
 
-OutStreamWrapper::OutStreamWrapper( const CComPtr< IStream >& baseStream )
+OutStreamWrapper::OutStreamWrapper(const CComPtr< IStream >& baseStream, TString& streamName, TString& archivePath, ProgressCallback * callback)
 	: m_refCount( 0 )
 	, m_baseStream( baseStream )
 {
+	m_streamName = streamName;
+	m_archivePath = archivePath;
+	m_callback = callback;
 }
 
 OutStreamWrapper::~OutStreamWrapper()
@@ -65,6 +68,10 @@ STDMETHODIMP OutStreamWrapper::Write( const void* data, UInt32 size, UInt32* pro
 	if ( processedSize != NULL )
 	{
 		*processedSize = written;
+	}
+	if (m_callback != nullptr)
+	{
+		m_callback->OnFileWritten(m_archivePath, m_streamName, written);
 	}
 	return hr;
 }

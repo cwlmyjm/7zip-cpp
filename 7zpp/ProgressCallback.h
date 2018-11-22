@@ -21,6 +21,10 @@ namespace SevenZip
 		*/
 		virtual void OnProgress(const TString& archivePath, unsigned __int64 bytesCompleted) = 0;
 
+		/*
+		Called Whenever progress has wrote bytes
+		*/
+		virtual void OnFileWritten(const TString& archivePath, const TString& filePath, unsigned __int64 bytesCompleted) = 0;
 
 		/*
 		Called When progress has reached 100%

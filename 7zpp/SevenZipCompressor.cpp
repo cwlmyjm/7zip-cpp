@@ -93,7 +93,7 @@ bool SevenZipCompressor::DoCompress(ProgressCallback* callback /*= nullptr*/)
 	//Set full outputFilePath including ending
 	m_archivePath += UsefulFunctions::EndingFromCompressionFormat(m_compressionFormat);
 
-	CComPtr< OutStreamWrapper > outFile = new OutStreamWrapper(OpenArchiveStream());
+	CComPtr< OutStreamWrapper > outFile = new OutStreamWrapper(OpenArchiveStream(), m_archivePath, m_archivePath, callback);
 	CComPtr< ArchiveUpdateCallback > updateCallback = new ArchiveUpdateCallback(m_fileList, m_archivePath, m_password, callback);
 
 	HRESULT hr = archiver->UpdateItems(outFile, (UInt32)m_fileList.size(), updateCallback);
